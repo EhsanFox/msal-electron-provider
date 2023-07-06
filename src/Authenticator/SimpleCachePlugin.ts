@@ -16,9 +16,8 @@
  * PLEASE DO NOT USE THIS IN PRODUCTION ENVIRONMENTS.
  */
 
-const fs = require("fs");
-const path = require("path");
-
+import { existsSync, readFile, mkdirSync, writeFile } from "fs";
+import { dirname } from "path";
 import { CACHE_LOCATION } from "./Constants";
 
 /**
@@ -33,8 +32,8 @@ const beforeCacheAccess = async (cacheContext: any) => {
     "🦒: PLEASE DO NOT USE THIS CACHE PLUGIN IN PRODUCTION ENVIRONMENTS!!!!"
   );
   return new Promise<void>((resolve, reject) => {
-    if (fs.existsSync(CACHE_LOCATION)) {
-      fs.readFile(CACHE_LOCATION, "utf-8", (err: unknown, data: unknown) => {
+    if (existsSync(CACHE_LOCATION)) {
+      readFile(CACHE_LOCATION, "utf-8", (err: unknown, data: unknown) => {
         if (err) {
           reject();
         } else {
@@ -43,11 +42,11 @@ const beforeCacheAccess = async (cacheContext: any) => {
         }
       });
     } else {
-      const dir = path.dirname(CACHE_LOCATION);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
+      const dir = dirname(CACHE_LOCATION);
+      if (!existsSync(dir)) {
+        mkdirSync(dir);
       }
-      fs.writeFile(
+      writeFile(
         CACHE_LOCATION,
         cacheContext.tokenCache.serialize(),
         (err: unknown) => {
@@ -67,11 +66,11 @@ const beforeCacheAccess = async (cacheContext: any) => {
  */
 const afterCacheAccess = async (cacheContext: any) => {
   if (cacheContext.cacheHasChanged) {
-    const dir = path.dirname(CACHE_LOCATION);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
+    const dir = dirname(CACHE_LOCATION);
+    if (!existsSync(dir)) {
+      mkdirSync(dir);
     }
-    await fs.writeFile(
+    await writeFile(
       CACHE_LOCATION,
       cacheContext.tokenCache.serialize(),
       (err: unknown) => {
