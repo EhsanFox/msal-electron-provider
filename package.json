@@ -1,0 +1,60 @@
+{
+  "name": "msal-electron-provider",
+  "version": "1.0.0",
+  "description": "The Microsoft Graph Toolkit Electron Provider - Fixed to work with webpack and others.",
+  "type":"module",
+  "keywords": [
+    "microsoft graph",
+    "microsoft graph toolkit",
+    "mgt",
+    "msal",
+    "electron",
+    "auth",
+    "authentication",
+    "msal-electron-provider"
+  ],
+  "homepage": "https://github.com/ehsanfox/msal-electron-provider",
+  "bugs": {
+    "url": "https://github.com/ehsanfox/msal-electron-provider/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ehsanfox/msal-electron-provider"
+  },
+  "author": {
+    "email": "ehsan8184@gmail.com",
+    "name": "Ehsan Golmakani",
+    "url": "https://ehsan.js.org"
+  },
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc --project ./tsconfig.json",
+    "build:esm": "tsc --project ./tsconfig.json --outDir dist/esm --module esnext --target esnext",
+    "build:check": "tsc --project ./tsconfig.json --noEmit --incremental false",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write src/**/*.{ts,js,json,yaml,yml}"
+  },
+  "dependencies": {
+    "@azure/msal-node": "^1.0.3",
+    "@microsoft/mgt-element": "3.0.0",
+    "@microsoft/microsoft-graph-client": "3.0.2"
+  },
+  "publishConfig": {
+    "directory": "dist"
+  },
+  "resolutions": {
+    "responselike": "2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^25.2.0",
+    "gen-esm-wrapper": "^1.1.3"
+  }
+}
