@@ -1,6 +1,6 @@
 {
   "name": "msal-electron-provider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The Microsoft Graph Toolkit Electron Provider - Fixed to work with webpack and others.",
   "typings": "dist/cjs/index.d.ts",
   "keywords": [
@@ -28,7 +28,7 @@
   },
   "exports": {
     "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js"
+    "require": "./dist/cjs/index.cjs"
   },
   "files": [
     "dist",
